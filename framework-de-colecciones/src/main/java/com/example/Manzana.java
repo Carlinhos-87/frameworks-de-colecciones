@@ -2,13 +2,7 @@ package com.example;
 
 import java.math.BigDecimal;
 
-import lombok.Builder;
+public record Manzana(double peso, String sabor,
+		BigDecimal precio, String variedad) {
 
-@Builder
-public record Manzana(
-		String variedad,
-		BigDecimal precio,
-		double peso
-		) {
-	
 }
