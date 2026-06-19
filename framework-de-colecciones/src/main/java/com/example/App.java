@@ -1,8 +1,8 @@
 package com.example;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -185,10 +185,26 @@ public class App {
     	
     	System.out.println("El contenido de la lista de manzanas es: " + listaManzanas);
     	
+    	/* Creacion de una coleccion que NO es de tamaño fijo, NI Inmutable, 
+    	 * es decir, una coleccion que si se puede modificar, agregar 
+    	 * y eliminar elementos */
     	
+    	/* Para agregar elementos a una coleccion utilizando el metodo add(), 
+    	 * por ejemplo, dicha coleccion tiene que tener espacio reservado para 
+    	 * ella a traves de el constructor de alguna de las clases que implementa 
+    	 * los metodos abstractos de dicha coleccion */
     	
+    	List<Manzana> listaModificableDeManzanas = new ArrayList<Manzana>();
     	
+    	listaModificableDeManzanas.addAll(listaManzanas);
     	
+    	listaModificableDeManzanas.add(Manzana.builder()
+    			.variedad("Red Golden")
+    			.peso(660.4)
+    			.precio(new BigDecimal(3.4).setScale(2, RoundingMode.HALF_UP))
+    			.build());
     	
+    	System.out.println("Coleccion Modificable");
+    	System.out.println(listaModificableDeManzanas);
     }
 } 	
