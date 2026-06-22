@@ -10,5 +10,5 @@ public record Persona(
 		Genero genero,
 		LocalDate fechaNacimiento,
 		BigDecimal salario) {
-
+		
 }

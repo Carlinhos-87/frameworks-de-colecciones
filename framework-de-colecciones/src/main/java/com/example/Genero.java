@@ -1,5 +1,5 @@
 package com.example;
 
 public enum Genero {
-	HOMBRE, MUJER, OTROS;
+	HOMBRE, MUJER, OTROS
 }
