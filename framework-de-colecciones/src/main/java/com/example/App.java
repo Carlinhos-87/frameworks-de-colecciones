@@ -60,6 +60,7 @@ public class App {
 		System.out.println("La lista del personal es: " + listadoPersonas);
 
 		List<Persona> personasMutables = new ArrayList<Persona>();
+		personasMutables.addAll(listadoPersonas);
 		
 		/* Obtener, utilizando Operaciones de Agregado, el salario promedio de todas las personas
 		 * del genero MUJER*/
@@ -129,7 +130,62 @@ public class App {
 		 * 
 		 * Y vamos a comenzar implementando una clase externa llamada Filtro*/
 		
-		flujoDePersonas.filter(new CriterioDeFiltro());
+		/* IMPORTANTE!!! Crear una clase externa para satisfacer la condicion del metodo filter, es 
+		* una exageracion, porque el objetivo de dicha clase es utilizarla en el metodo filter nada
+		* mas.
+		* 
+		* Entoces ¿Que se sugiere hacer? Se necesita un tipo de clase que se utilice en el mismo
+		* lugar donde se necesita, no fuera de ahí, es decir, se necesita una denominada CLASE
+		* ANONIMA, que es un tipo de clase que permite instanciar un objetos en el mismo lugar 
+		* que se implementa la clase 
+		* 
+		* La clase anonima es como una expresion de clase, que se utiliza para implementar una interfaz,
+		* aunque tambien se puede utilizar para implementar una clase abstracta. 
+		* 
+		* Antes de utilizar una clase anonima para implementar la interfaz Predicate vamos a 
+		* crear una clase anonima para implemtar una sencilla interfaz llamada saludo
+		
+		* Una clase anonima es una expresion de clase, por lo cual tiene que terminar en punto 
+		* y coma*/
+		
+		Saludar saludar = new Saludar() {
+			
+			@Override
+			public void misSaludosParaTi(String nombre) {
+				// TODO Auto-generated method stub
+				System.out.println("Hola " + nombre);
+				
+			}
+		};
+		
+		saludar.misSaludosParaTi("Maria");
+		
+		Predicate<Persona> predicate2 = new Predicate<Persona>() {
+			
+			@Override
+			public boolean test(Persona persona) {
+				// TODO Auto-generated method stub
+				return persona.genero().equals(Genero.MUJER);
+			}
+		};
+		
+		/* Ejercicio n# 1 del martes 23 de Junio.
+		 * 
+		 * Utilizando una clase anonima implementar la interfaz Predicate que
+		 * necesita el metodo filter, es decir, pasar el criterio de filtro al
+		 * metodo filter mediante una expresion de clase anonima*/
+		
+		//flujoDePersonas.filter(new CriterioDeFiltro());
+		
+		//Variante de solucion preferida
+		flujoDePersonas.filter(new Predicate<Persona>() {
+
+			@Override
+			public boolean test(Persona persona) {
+				// TODO Auto-generated method stub
+				return persona.genero().equals(Genero.MUJER);
+			}
+		});
 		
 	}
 }
