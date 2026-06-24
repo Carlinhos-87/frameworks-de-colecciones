@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -177,15 +178,49 @@ public class App {
 		
 		//flujoDePersonas.filter(new CriterioDeFiltro());
 		
-		//Variante de solucion preferida
-		flujoDePersonas.filter(new Predicate<Persona>() {
+//		//Variante de solucion preferida
+//		flujoDePersonas.filter(new Predicate<Persona>() {
+//
+//			@Override
+//			public boolean test(Persona persona) {
+//				// TODO Auto-generated method stub
+//				return persona.genero().equals(Genero.MUJER);
+//			}
+//		});
+		
+		/* Si la interface que se va a implementar con una clase anonima es una interface
+		 * funcional utilizar una clase anonima es todavia EXCESIVO, demasiado codigo
+		 * por lo cual, ¿que se utiliza entonces? Se utiliza una EXPRESION LAMBDA ¿que
+		 * es una expresion LAMBDA? Es como un metodo anonimo, se utiliza para pasar
+		 * a un metodo la implementacion del unico metodo abstracto que hay que implementar.
+		 * 
+		 * A continuacion la sintaxis de una expresion LAMBDA*/
+		
+		OptionalDouble optionalDelSalarioPromedio = flujoDePersonas
+						.filter(p -> p.genero().equals(Genero.MUJER))
+						.mapToDouble(persona -> persona.salario().doubleValue())
+						.average();
+		
+		/* ¿Que es un Optional? El tipo de dato Optional es una de las maravillas
+		 * de las versiones mas recientes de JAVA, surge en la version 8 de JAVA
+		 * y el tipo optional te protege del temido NullPointerException, es 
+		 * decir, que tu intentes trabajar con un objeto y este tome el valor
+		 * NULL y el problema es que cuando en una operacion interviene un NULL
+		 * todo se vuelve NULL
+		 * 
+		 * Finalmente, el tipo Optional hay que verlo como una cajita de sorpresa,
+		 * donde puede venir el resultado esperado, que seria el salario promedio
+		 * en este caso, o seria un valor NULL porque el promedio no se pudo
+		 * calcular, porque ninguna de las personas del genero MUJER tenian salario*/
+		
+		if (optionalDelSalarioPromedio.isPresent()) {
+						
+			/* De la cajita del Optioinal puedo extraer el salario promedio sin
+			 * ningun peligro*/
 
-			@Override
-			public boolean test(Persona persona) {
-				// TODO Auto-generated method stub
-				return persona.genero().equals(Genero.MUJER);
-			}
-		});
+			double salarioPromedio = optionalDelSalarioPromedio.getAsDouble();
+			System.out.println("El salario promedio es: " + salarioPromedio);
+		}
 		
 	}
 }
