@@ -396,6 +396,18 @@ public class App {
 			+ "de mayor a menor");
 	personasMutables.forEach(System.out::println);
 		
+		/* Ejercicio #1 del lunes 29 de junio. 
+		 * Ordenar la coleccion de personas segun la edad de la persona de mayor a menor,
+		 * es decir, las personas mayores se muestren primero. */
+	
+		/* Ejercicio #2 del lunes 29 de junio.
+		 * Ordenar la coleccion de personas primero por el genero y luego por la edad, 
+		 * mostrando primero las personas mas jovenes de su genero*/
+	
+		/* Ejercicio #3 del lunes 29 de junio.
+		 * Recorrer la coleccion de personas y obtener una nueva coleccion con las
+		 * personas del genero mujer que nacieron en la segunda quincena del mes
+		 * de su fecha de nacimiento*/
 		
 		
 	}
