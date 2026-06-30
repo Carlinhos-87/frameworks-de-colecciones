@@ -2,15 +2,20 @@ package com.example;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjuster;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.OptionalDouble;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+
 
 
 public class App {
@@ -402,13 +407,43 @@ public class App {
 	
 		/* Ejercicio #2 del lunes 29 de junio.
 		 * Ordenar la coleccion de personas primero por el genero y luego por la edad, 
-		 * mostrando primero las personas mas jovenes de su genero*/
+		 * mostrando primero las personas mas jovenes de su genero.
+		 * 
+		 * Para resolver el ejercicio deberiamos crear un metodo que nos devuelva la edad
+		 * de la persona, en el record persona.*/
 	
 		/* Ejercicio #3 del lunes 29 de junio.
 		 * Recorrer la coleccion de personas y obtener una nueva coleccion con las
 		 * personas del genero mujer que nacieron en la segunda quincena del mes
 		 * de su fecha de nacimiento*/
+	
+	//Solucion ejercicio #1	
+	Collections.sort(personasMutables, (p2,p1) -> 
+		p2.fechaNacimiento().compareTo(p1.fechaNacimiento()));
 		
+	System.out.println("Listado de personas ordenado por edad de mayor a menor ");
+	personasMutables.forEach(System.out::println);
+	
+	//Solucion ejercicio #2
+	Collections.sort(personasMutables, Comparator.comparing(Persona::genero,
+				Comparator.nullsFirst(Comparator.naturalOrder()))
+			.thenComparing(Persona::edad));
+	
+	System.out.println("Solucion al ejercicio 2");
+	personasMutables.forEach(System.out::println);
+	
+	
+	//Solucion ejercicio#3
+	
+	List<Persona> personasEjer3 = personasMutables.stream().filter
+			(p -> p.genero().equals(Genero.MUJER) && 
+			p.fechaNacimiento().with(TemporalAdjusters.lastDayOfMonth())
+					.minusDays(15).isBefore(p.fechaNacimiento()))
+					.collect(Collectors.toList());
+	
+	System.out.println("----- Solucion ejercicio 3 -----");
+	personasEjer3.forEach(System.out::println);
 		
 	}
+
 }

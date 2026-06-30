@@ -2,6 +2,7 @@ package com.example;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public record Persona(
 		String nombre,
@@ -43,7 +44,12 @@ public record Persona(
 		resultado = (x != y && x > 2 || y >= 5) ? "Si, se cumple" : "No, no se cumplue";
 		*/
 		
-		
 	}
 		
+	
+	public long edad() {
+
+		return ChronoUnit.YEARS.between(fechaNacimiento, LocalDate.now());
+	}
+				
 }
